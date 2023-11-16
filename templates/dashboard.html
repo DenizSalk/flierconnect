@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Dashboard</title>
+        <meta charset="UTF-8">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;0,1000;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900;1,1000&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    </head>
+<body>
+    <div class="container-fluid">
+        <div class="row flex-nowrap">
+            <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-dark">&nbsp;
+            </div>
+            <div style="position: fixed;" class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-dark">
+                <div class="d-flex flex-column align-items-center px-3 pt-2 text-white min-vh-100">
+                    <a href="/dashboard" class="d-flex align-items-center pb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+                        <span class="fs-5 d-none d-sm-inline brand"><img src="{{ url_for('static', filename='yatayl.png') }}" alt=""></span>
+                    </a>
+                    <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center" id="menu">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link align-middle px-0">
+                                <i class="fs-4 bi-house"></i> <a href="/"><span class="ms-1 d-none d-sm-inline">Anasayfa</span></a>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#submenu3" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
+                                <i class="fs-4 bi-grid"></i> <span class="ms-1 d-none d-sm-inline">Ayarlar</span> </a>
+                                <ul class="collapse nav flex-column ms-1" id="submenu3" data-bs-parent="#menu">
+                                <li class="w-100">
+                                    <a href="wplogin" dissabled="dissabled" class="nav-link px-0"> <span class="d-none d-sm-inline">Gönderim Ayaları</span></a>
+                                </li>
+                                <li>
+                                    <a href="/listeyukle" class="nav-link px-0"> <span class="d-none d-sm-inline">Destek</span></a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <hr>
+                    <div class="dropdown pb-4 leftmenu_end">
+                        <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+                            <img src="https://github.com/mdo.png" alt="hugenerd" width="30" height="30" class="rounded-circle">
+                            <span class="d-none d-sm-inline mx-1">{{ user_data.username }}</span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
+                            <li><a class="dropdown-item" href="#">Profil</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item" href="{{ url_for('logout') }}" >Çıkış Yap</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col py-3 dashboardmain">
+                <div class="col-6 leftsidedash">
+                    <div class="col-10 userdata">
+                        <span class="wellcome mainwellcome">Hoşgeldin <span class="innername">{{ user_data.username }}</span></span><br>
+                        <span class="sendlimit wellcome">Kullanım Bilgileri:</span>
+                        <div class="progress">
+                            <div class="progress-bar progress-bar-striped" role="progressbar" style="width: {{ user_data.s_count / (user_data.s_limit / 100) }}%" aria-valuenow="{{ user_data.s_count }}" aria-valuemin="0" aria-valuemax="{{ user_data.s_limit }}"></div>
+                            <span class="limit_ingo">{{ user_data.s_count }} / {{ user_data.s_limit }}</span>
+                        </div>
+                        <div class="lastdata">
+                            <div class="workinfo">
+                                <span class="lastinfohead">Son Gönderilen Mesaj:</span><br>
+                                <div class="lastinfo">{{ user_data.last_messagetext }}</div>
+                            </div>
+                            <div class="workinfo">
+                                <span class="lastinfohead lastnumbershead">Son Mesaj Atılan Numalarar:</span>
+                                <ol class="lasphoneol">
+                                {% for phonesl in user_data.last_phones %}
+                                <li class="lastphone">{{ phonesl }}</li>
+                                {% endfor %}
+                                </ol>
+                            </div>
+                            <div class="workinfo">
+                                <span class="lastinfohead">Son Gönderim Başlangıcı:</span><br>
+                                <div class="lastinfo">{{ user_data.last_startdate }}</div>
+                            </div>
+                            <div class="workinfo">
+                                <span class="lastinfohead">Son Gönderim bitimi:</span><br>
+                                <div class="lastinfo">{{ user_data.last_enddate }}</div>
+                            </div>
+                            <div class="workinfo">
+                                <span class="lastinfohead">Son Kullanılan Liste:</span><br>
+                                <div class="lastinfo">{{ user_data.last_sendl }}</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-10 gonderimyap">
+                        <span class="wellcome">Gönderim Yap</span><br>
+                        <form action="/send" method="post">
+                            <input type="text" class="last_messagetext"  name="last_messagetext" id="last_messagetext" placeholder="Mesajınızı girin.">
+                            <select name="currentlist" class="form-select" aria-label="Default select example" >
+                                <option selected>Liste Seç</option>
+                                {% for list in user_data.Lists %}
+                                <option value="{{ list.name }}">{{ list.name }}</option>
+                                {% endfor %}
+                            </select>
+                            <input type="submit" value="Gönder">
+                        </form>
+                    </div>
+                </div>
+                <div class="col-6 rightsidedash">
+                    <div class="col-11 qr_aciklama">
+                    <span class="wellcome">Whatsap Hesabınızı Sisteme Bağlayın</span>
+                    <p>Gönderim Yapmaya Başlamadan Önce Burayı okuyun</p>
+                    <div class="allinfo">
+                        <div class="allinfo_box">
+                            Listeler kısmından liste ekleye tıklayarak gönderim yapmak istediğiniz telefon numaralarını ekleyebilirsiniz. Her satıra bir telefon numarası gelecek şekilde, başında ülke kodu ve 0 olmadan ekleyiniz.Yurt dışına gönderim yapmak için destek kısmından ticket açınız.
+                        </div>
+                        <div class="allinfo_box">
+                            Makineyi çalıştır butonuna tıklayarak qr kodunuzun alt kısımda belirmesini bekleyiniz. Qr kodunuz görünür olduğunda uygulamadan taratarak giriş yapınız <span class="qrbilgi">makineyi durdurduğunuzda ve ya hesaptan çıkış yaptğınızda hesabınızdan çıkış yapılır. Bu sebeple her seferinden yeniden bağlantı kurmanız gerekmektedir.</span>
+                        </div>
+                        <div class="allinfo_box">
+                            Gönderim yap kısmından mesajınızı girin ve altından gönderim yapmak istediğiniz listeyi seçerek gönder butonuna tıklayın.
+                        </div>
+                        <div class="allinfo_box">
+                            Gönderimin sorunsuz makineyi durdurmayın ve hesabınızdan çıkış yapmayın.
+                        </div>
+                    </div>
+                    {% if user_data.worker == "deactive" %}
+                        <form method="post" action="/worker">
+                            <input type="text" name="engine" value="start" required="required" style="display:none;">
+                            <button type="submit" class="btn btn-primary btn-block btn-large startmachine">Makineyi Çalıştır</button>
+                        </form>
+                    {% else %}
+                    <form method="post" action="/worker">
+                        <input type="text" name="engine" value="stop" required="required" style="display:none;">
+                        <button type="submit" class="btn btn-primary btn-block btn-large stopmachinebut">Makineyi Durdur</button>
+                    </form>
+                    {% endif %}
+                    </div>
+                    {% if is_from_calistir %}
+                        {% if user_data.qr_status == "nexist" %}
+                            <div class="col-10 qr_self"><img class="qrimg" src="{{ url_for('static', filename='loading-qr.gif') }}" alt=""><br><p>makineyi çalıştırdıktan sonra kodunuz burada gözükecek</p></div>
+                            <script>
+                                setTimeout(function() {
+                                  location.reload();
+                                }, 5000);
+                            </script>
+                        {% elif user_data.qr_status == "exist" %}
+                            <div class="col-10 qr_self"><img class="qrimg" src="{{ url_for('static', filename=user_data.qrpath) }}" alt=""></div>
+                        {% else %}
+                            <div class="col-10 qr_self"><p>Bir Hata Oluştu. Sistem Adminine Danışın.</p></div>
+                        {% endif %}
+                    {% else %}
+                        <div class="col-10 qr_self"><img class="qrimg" src="{{ url_for('static', filename='qrcode.png') }}" alt=""><br><p>makineyi çalıştırdıktan sonra kodunuz burada gözükecek</p></div>
+                    {% endif %}
+                </div>
+                <div class="col-11 listmanagement">
+                    <div class="listegiris">
+                        <span class="wellcome">Listeler</span>
+                        <button id="toggleFormButton">Ekle</button>
+                    </div>
+                    <div id="listeekle" class="listeekle displaynone">
+                        <form action="/handlelist" method="get">
+                            <input class="displaynone" type="text" name="action" value="add">
+                            <input class="displaynone" type="text" name="current" value="none">
+                            <label class="adllabel" for="listname">Liste İsmi:</label>
+                            <input class="adlnameinp" type="text" id="listname" name="listname">
+                            <label class="adllabel" for="phonenumbers">Telefon Numaraları:</label>
+                            <textarea class="adlphoneinp" id="phonenumbers" name="phonenumbers" rows="4" required></textarea>
+                            <input class="adlsubmit" type="submit" id="lsubmit" name="lsubmit" value="Ekle">
+                        </form>
+                    </div>
+                        <div class="singlelist col-12">
+                            <div class="listname lbas col-5">İsim</div>
+                            <div class="listdate lbas col-3">Tarih</div>
+                            <div class="listcount lbas col-3">Adet</div>
+                            <div class="listdelete lbas col-1">&nbsp;</div>
+                        </div>
+                    {% for list in user_data.Lists %}
+                        <div class="singlelist col-12">
+                            <div class="listname col-5">{{ list.name }}</div>
+                            <div class="listdate col-3">{{ list.listdatedate }}</div>
+                            <div class="listcount col-3">{{ list.phones|length }}</div>
+                            <div class="listdelete col-1"><a href="/handlelist?action=delete&listname={{ list.name }}">sil</a></div>
+                            <div class="listself col-12">
+                                <div class="accordion accordion-flush" id="accordionExample">
+                                    <div class="accordion-item">
+                                      <h2 class="accordion-header" id="headingOne">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#{{ list.name }}" aria-expanded="false" aria-controls="{{ list.name }}">
+                                          Listeyi Göster
+                                        </button>
+                                      </h2>
+                                      <div id="{{ list.name }}" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                                        <div class="accordion-body">
+                                            {% for phone in list.phones %}
+                                            <li class="phonesingle">{{ phone }}</li>
+                                            {% endfor %}
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <script>
+            document.addEventListener('DOMContentLoaded', function () {
+            var toggleFormButton = document.getElementById('toggleFormButton');
+            var newListForm = document.getElementById('listeekle');
+
+            toggleFormButton.addEventListener('click', function () {
+                newListForm.classList.toggle('displaynone');
+            });
+            });
+    </script>
+</body>
+</html>

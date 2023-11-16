@@ -1,0 +1,69 @@
+{
+    "users": [
+        {
+            "id": 1001,
+            "username": "admin",
+            "password": "toor",
+            "qrpath": "/u_admin/1001.jpg",
+            "s_count": 340,
+            "Lists": [
+                {
+                    "name": "test",
+                    "items": [],
+                    "phones": [
+                        "5393397509"
+                    ],
+                    "listdatedate": "2023-11-10",
+                    "current": "yes"
+                },
+                {
+                    "name": "deneme",
+                    "phones": [
+                        "5393397509",
+                        "5393397509",
+                        "5393397509",
+                        "5393397509"
+                    ],
+                    "listdatedate": "2023-11-10",
+                    "current": "none"
+                },
+                {
+                    "name": "yeni liste",
+                    "items": [],
+                    "phones": [
+                        "5393397509"
+                    ],
+                    "listdatedate": "2023-11-12",
+                    "current": "none"
+                },
+                {
+                    "name": "utf-8 \u00c5\u0178ikin",
+                    "items": [],
+                    "phones": [
+                        "5393397509"
+                    ],
+                    "listdatedate": "2023-11-12",
+                    "current": "none"
+                }
+            ],
+            "s_limit": 1000,
+            "worker": "deactive",
+            "qr_status": "nexist",
+            "last_messagetext": "bu bir test mesaj\u0131d\u0131r",
+            "last_sendl": "test-2",
+            "last_startdate": "2023-11-10 01:13",
+            "last_enddate": "test-2 01:17",
+            "last_phones": [
+                "5393397509",
+                "5393397509",
+                "5393397509",
+                "5393397509",
+                "5393397509",
+                "5393397509",
+                "5393397509",
+                "5393397509",
+                "5393397509"
+            ]
+        }
+    ]
+}

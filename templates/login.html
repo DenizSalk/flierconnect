@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;0,1000;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900;1,1000&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="login">
+        <h1>Login</h1>
+        <form method="post" action="/auth">
+            <input type="text" name="username" placeholder="username" required="required" />
+            <input type="password" name="password" placeholder="password" required="required" />
+            <button type="submit" class="btn btn-primary btn-block btn-large">Let me in.</button>
+        </form>
+    </div>
+</body>
+<style>
+html { width: 100%; height:100%; overflow:hidden; }
+
+body { 
+	width: 100%;
+	height:100%;
+	font-family: 'Open Sans', sans-serif;
+    background: rgb(11,99,128);
+    background: linear-gradient(138deg, rgba(11,99,128,1) 0%, rgba(79,82,63,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#3E1D6D', endColorstr='#092756',GradientType=1 );
+}
+.login { 
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	margin: -150px 0 0 -150px;
+	width:300px;
+	height:300px;
+}
+h1 {
+    display: flex;
+    justify-content: center;
+    color: #F5FCCD;
+    font-family: 'Nunito', sans-serif;
+}
+input {
+    width: calc(100% - 1rem);
+    height: 3vh;
+    border-radius: 1rem;
+    border: none!important;
+    margin-bottom: 1rem;
+    padding-left: 1rem;
+    font-family: 'Nunito', sans-serif;
+}
+button.btn.btn-primary.btn-block.btn-large {
+    width: 100%;
+    border-radius: 1rem;
+    height: 3vh;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    background: #F5FCCD;
+    border: none;
+    font-family: 'Nunito', sans-serif;
+    color: #164863;
+    font-weight: bold;
+}
+</style>
+</html>
